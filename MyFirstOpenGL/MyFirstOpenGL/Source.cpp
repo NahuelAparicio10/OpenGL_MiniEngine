@@ -63,7 +63,6 @@ void main() {
 		Engine::getInstance().Init();
 	
 		//Cargo Modelos
-		GenerateGameObjects();	
 
 		//Definimos color para limpiar el buffer de color
 		glClearColor(5.0f, 186.f, 152.f, 1.0f);

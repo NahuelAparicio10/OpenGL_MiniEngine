@@ -27,7 +27,7 @@ private:
 	InputManager* _inputManager;
 	TimeManager* _timeManager;
 	ModelManager* _modelManager;
-	std::vector<MeshRenderer*> gameObjects;
+	std::vector<GameObject*> gameObjects;
 	void GenerateGameObjects();
 	Engine(const Engine&) = delete;
 	Engine& operator=(const Engine&) = delete;
