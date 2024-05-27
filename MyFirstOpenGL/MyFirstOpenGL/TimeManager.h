@@ -6,7 +6,7 @@ public:
 	TimeManager();
 	void HandleTime();
 
-	float getDeltaTime() { return deltaTime; };
+	float GetDeltaTime() { return deltaTime; };
 
 private:
 	float deltaTime;

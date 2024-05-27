@@ -29,9 +29,31 @@ void MeshRenderer::Render(glm::mat4 view)
 
     const Material& material = *_model->GetMaterial();
 
+    float time = glfwGetTime(); // Obtener el tiempo actual
+    float cycleTime = 20.0f; // Ciclo de 20 segundos
+    float dayPhase = fmod(time, cycleTime) / cycleTime; // Normalizar el tiempo en un rango [0, 1]
+
+    // Calculate the positions of the sun and moon
+    float angle = dayPhase * 2.0f * 3.14f;
+    glm::vec3 sunDirection = glm::vec3(cos(angle), sin(angle), -3.0f);
+    glm::vec3 moonDirection = glm::vec3(cos(angle + 3.14f), sin(angle + 3.14f), -3.0f);
+
+    // Ambient light color change
+    glm::vec3 ambientColor = glm::vec3(0.2f, 0.2f, 0.5f) * (1.0f - abs(cos(angle))) + glm::vec3(1.0f, 0.9f, 0.7f) * abs(cos(angle));
+    float ambientIntensity = 0.5f;
+
+    // Sun and moon light colors
+    glm::vec3 sunColor = glm::vec3(1.0f, 0.9f, 0.7f);
+    glm::vec3 moonColor = glm::vec3(0.2f, 0.2f, 0.5f);
+
     glUniform1f(glGetUniformLocation(myProgram, "opacity"), material.opacity);
-    glUniform3fv(glGetUniformLocation(myProgram, "ambient"), 1, glm::value_ptr(material.ambient));
-    glUniform3fv(glGetUniformLocation(myProgram, "diffuse"), 1, glm::value_ptr(material.diffuse));
+    glUniform3fv(glGetUniformLocation(myProgram, "ambientColor"), 1, glm::value_ptr(ambientColor));
+    glUniform1f(glGetUniformLocation(myProgram, "ambientIntensity"), ambientIntensity);
+    glUniform3fv(glGetUniformLocation(myProgram, "sunColor"), 1, glm::value_ptr(sunColor));
+    glUniform3fv(glGetUniformLocation(myProgram, "moonColor"), 1, glm::value_ptr(moonColor));
+    glUniform3fv(glGetUniformLocation(myProgram, "sunDirection"), 1, glm::value_ptr(glm::normalize(sunDirection)));
+    glUniform3fv(glGetUniformLocation(myProgram, "moonDirection"), 1, glm::value_ptr(glm::normalize(moonDirection)));
+    glUniform1f(glGetUniformLocation(myProgram, "minDiffuseLight"), 0.15f);
 
     //Vinculo su VAO para ser usado
     glBindVertexArray(_model->GetVAO());

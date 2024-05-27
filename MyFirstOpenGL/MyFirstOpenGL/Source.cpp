@@ -16,7 +16,7 @@ void Resize_Window(GLFWwindow* window, int iFrameBufferWidth, int iFrameBufferHe
 	glUniform2f(glGetUniformLocation(ProgramManager::getInstance().compiledPrograms[0], "windowSize"), iFrameBufferWidth, iFrameBufferHeight);
 }
 
-void main() {	
+int main() {	
 	
 	//Definir semillas del rand según el tiempo
 	srand(static_cast<unsigned int>(time(NULL)));
@@ -60,7 +60,7 @@ void main() {
 	//Inicializamos GLEW y controlamos errores
 	if (glewInit() == GLEW_OK) {
 
-		Engine::getInstance().Init();
+		Engine::GetInstance().Init();
 	
 		//Cargo Modelos
 
@@ -80,9 +80,9 @@ void main() {
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
 			// Updates time, inputs and camera
-			Engine::getInstance().Update(window);
+			Engine::GetInstance().Update(window);
 
-			Engine::getInstance().Render(Camera::getInstance().getViewMatrix());
+			Engine::GetInstance().Render(Camera::getInstance().getViewMatrix());
 			//Cambiamos buffers
 			glFlush();
 			glfwSwapBuffers(window);
@@ -104,9 +104,7 @@ void main() {
 	glfwTerminate();
 
 
-
-
-
+	return 0;
 }
 
 

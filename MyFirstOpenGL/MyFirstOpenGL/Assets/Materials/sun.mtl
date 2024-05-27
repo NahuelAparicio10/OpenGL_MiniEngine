@@ -1,0 +1,17 @@
+# 3ds Max Wavefront OBJ Exporter v0.99 - (c)2007 guruware
+# File Created: 28.05.2024 00:22:38
+
+newmtl sun
+	Kd 0.8000 0.8000 0.8000
+	Ks 0.8000 0.8000 0.8000
+	Tr 0.0000
+	d 1.0000
+	Tf 0.0000 0.0000 0.0000
+	Pr 0.5356
+	Pm 0.0000
+	Pc 0.0000
+	Pcr 0.0000
+	Ni 1.5200
+	illum 2
+	map_Kd C:\Users\nahue\Desktop\PS1_Low Poly Sun.fbm\Texture_Sun_512x256.jpg
+	map_Ke C:\Users\nahue\Desktop\PS1_Low Poly Sun.fbm\Sun_Emission.png

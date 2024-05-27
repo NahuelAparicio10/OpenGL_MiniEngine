@@ -3,7 +3,6 @@
 #include "Material.h"
 #include "Component.h"
 #include "Camera.h"
-#include "Engine.h"
 
 
 class MeshRenderer : public Component

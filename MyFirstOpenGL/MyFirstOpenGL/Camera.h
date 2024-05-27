@@ -17,6 +17,7 @@ public:
 	float getfFar() const { return _fFar; }
 	float getXPos() const { return _transform->_position.x; }
 	float getYPos() const { return _transform->_position.y; }
+	glm::vec3 GetPosition() const { return _transform->_position; };
 	glm::vec3 getVectorFront() const { return _transform->_vectorFront; }
 
 	

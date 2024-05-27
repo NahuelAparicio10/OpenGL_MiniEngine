@@ -27,7 +27,7 @@ struct Mouse
 	void setLastPositionY(float _lastPositionY) { lastPositionY = _lastPositionY; }
 	void setFirstMouse(bool _firstMouse) { firstMouse = _firstMouse; }
 
-	void setMouseDirection(GLFWwindow* window, double xpos, double ypos)
+	void setMouseDirection(GLFWwindow* window, float xpos, float ypos)
 	{
 		if (firstMouse)
 		{

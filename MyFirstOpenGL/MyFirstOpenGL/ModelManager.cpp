@@ -17,9 +17,11 @@ ModelManager::~ModelManager()
 
 void ModelManager::GenerateModels()
 {
-	models.push_back(LoadOBJModel(0, "Assets/Models/rock.obj", "Assets/Textures/rock/rock_bc.png", "Assets/Materials/rock.mtl", GL_TEXTURE0, ModelType::Rock));
-
-	models.push_back(LoadOBJModel(0, "Assets/Models/landscape.obj", "Assets/Textures/landscape/sand_albedo.jpeg", "Assets/Materials/landscape.mtl", GL_TEXTURE1, ModelType::Landscape));
+	models.push_back(LoadOBJModel(0, "Assets/Models/landscape.obj", "Assets/Textures/landscape/landscape.jpeg", "Assets/Materials/landscape.mtl", GL_TEXTURE0, ModelType::Terrain));
+	models.push_back(LoadOBJModel(0, "Assets/Models/rock.obj", "Assets/Textures/rock/rock.jpeg", "Assets/Materials/rock.mtl", GL_TEXTURE1, ModelType::Rock));
+	models.push_back(LoadOBJModel(0, "Assets/Models/bush.obj", "Assets/Textures/bush/bush.png", "Assets/Materials/bush.mtl", GL_TEXTURE2, ModelType::Bush));
+	models.push_back(LoadOBJModel(0, "Assets/Models/trunk.obj", "Assets/Textures/tronc.jpeg", "Assets/Materials/trunk.mtl", GL_TEXTURE3, ModelType::Tree));
+	models.push_back(LoadOBJModel(0, "Assets/Models/sun.obj", "Assets/Textures/sun.jpeg", "Assets/Materials/sun.mtl", GL_TEXTURE4, ModelType::Sun));
 }
 
 Model* ModelManager::GetModelByType(ModelType type)

@@ -2,14 +2,14 @@
 #include "Model.h"
 #include "InputManager.h"
 #include "TimeManager.h"
-#include "MeshRenderer.h"
 #include "ModelManager.h"
+#include "MapManager.h"
+#include "ObjectsManager.h"
 
 class Engine
 {
 public:
-	//Singleton to call from everywhere
-	static Engine& getInstance() { static Engine instance; return instance; }
+	static Engine& GetInstance() { static Engine instance; return instance; }
 	Engine();
 
 	//Functions utils
@@ -20,15 +20,18 @@ public:
 
 	//Getters
 	InputManager* getInputManager() { return _inputManager; };
-	TimeManager* getTimeManager() { return _timeManager; };
+	TimeManager* GetTimeManager() { return _timeManager; };
 	ModelManager* GetModelManager() { return _modelManager; };
+	MapManager* GetMapManager() { return _mapManager; };
+	ObjectsManager* GetObjectsManager() { return _objectsManager; };
 	
 private:
 	InputManager* _inputManager;
 	TimeManager* _timeManager;
 	ModelManager* _modelManager;
-	std::vector<GameObject*> gameObjects;
-	void GenerateGameObjects();
+	MapManager* _mapManager;
+	ObjectsManager* _objectsManager;
+
 	Engine(const Engine&) = delete;
 	Engine& operator=(const Engine&) = delete;
 };
