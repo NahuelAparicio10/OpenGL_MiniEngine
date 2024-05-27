@@ -2,6 +2,8 @@
 #include "Model.h"
 #include "InputManager.h"
 #include "TimeManager.h"
+#include "MeshRenderer.h"
+#include "ModelManager.h"
 
 class Engine
 {
@@ -13,16 +15,20 @@ public:
 	//Functions utils
 	void Init();
 	void Update(GLFWwindow* window);
-	Model* LoadOBJModel(int IDProgram, const std::string& filePath, const char* texturefilePath, const std::string& matFilePath,GLenum textureUnit, ModelType type);
+	void Render(glm::mat4 view);
+	
 
 	//Getters
-	InputManager* getInputManager() { return inputManager; };
-	TimeManager* getTimeManager() { return timeManager; };
+	InputManager* getInputManager() { return _inputManager; };
+	TimeManager* getTimeManager() { return _timeManager; };
+	ModelManager* GetModelManager() { return _modelManager; };
 	
 private:
-	InputManager* inputManager;
-	TimeManager* timeManager;
-
+	InputManager* _inputManager;
+	TimeManager* _timeManager;
+	ModelManager* _modelManager;
+	std::vector<GameObject*> gameObjects;
+	void GenerateGameObjects();
 	Engine(const Engine&) = delete;
 	Engine& operator=(const Engine&) = delete;
 };

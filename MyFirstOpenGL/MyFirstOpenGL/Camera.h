@@ -15,9 +15,9 @@ public:
 	float getAspectRatio() const { return _aspectRatio; }
 	float getfNear() const { return _fNear; }
 	float getfFar() const { return _fFar; }
-	float getXPos() const { return _position.x; }
-	float getYPos() const { return _position.y; }
-	glm::vec3 getVectorFront() const { return _vectorFront; }
+	float getXPos() const { return _transform->_position.x; }
+	float getYPos() const { return _transform->_position.y; }
+	glm::vec3 getVectorFront() const { return _transform->_vectorFront; }
 
 	
 	glm::mat4 getViewMatrix() const { return _viewMatrix; }
@@ -29,9 +29,9 @@ public:
 	void setfNear(float fNear) { _fNear = fNear; }
 	void set_fFar(float fFar) { _fFar = fFar; }
 	void setOrbit(CameraState state) { myCameraState = state; }
-	void setXPos(float xPos) { _position.x = xPos; }
-	void setYPos(float yPos) { _position.y = yPos; }
-	void setVectorFront(glm::vec3 vFront) { _vectorFront = vFront; }
+	void setXPos(float xPos) { _transform->_position.x = xPos; }
+	void setYPos(float yPos) { _transform->_position.y = yPos; }
+	void setVectorFront(glm::vec3 vFront) { _transform->_vectorFront = vFront; }
 
 
 	
@@ -50,13 +50,12 @@ private:
 	float _fNear;
 	float _fFar;
 	const float _speed;
-	
-	
 
 
 	
 	glm::mat4 _viewMatrix;
 	CameraState myCameraState;
+	Transform* _transform;
 	
 };
 

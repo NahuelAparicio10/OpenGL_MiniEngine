@@ -4,7 +4,7 @@
 class Material
 {
 public:
-	
+
 	Material();
 	void LoadMaterial(const std::string& filePath);
 	glm::vec3 ambient;
