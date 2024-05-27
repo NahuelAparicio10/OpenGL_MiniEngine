@@ -1,26 +1,20 @@
 #include "ProgramManager.h"
 #include "Texture.h"
 #include "Engine.h"
-#include "Source.h"
 #include "Camera.h"
-
+#include "MeshRenderer.h"
 
 #define WINDOW_WIDTH 800
 #define WINDOW_HEIGHT 600
 
 
-std::vector<Model*> models;
-Texture* _texture;
-void Resize_Window(GLFWwindow* window, int iFrameBufferWidth, int iFrameBufferHeight) {
 
+void Resize_Window(GLFWwindow* window, int iFrameBufferWidth, int iFrameBufferHeight) {
 
 	//Definir nuevo tamaño del viewport
 	glViewport(0, 0, iFrameBufferWidth, iFrameBufferHeight);
 	glUniform2f(glGetUniformLocation(ProgramManager::getInstance().compiledPrograms[0], "windowSize"), iFrameBufferWidth, iFrameBufferHeight);
 }
-
-
-
 
 void main() {	
 	
@@ -65,15 +59,11 @@ void main() {
 	
 	//Inicializamos GLEW y controlamos errores
 	if (glewInit() == GLEW_OK) {
+
 		Engine::getInstance().Init();
 	
 		//Cargo Modelos
-		GenerateLandscape();
-		//GenerateTroll();
-		//GenerateRocks();
-		//GenerateClouds();
-		GenerateDesertRocks();
-	
+		GenerateGameObjects();	
 
 		//Definimos color para limpiar el buffer de color
 		glClearColor(5.0f, 186.f, 152.f, 1.0f);
@@ -93,12 +83,7 @@ void main() {
 			// Updates time, inputs and camera
 			Engine::getInstance().Update(window);
 
-			//Render models
-			for (Model *model : models)
-			{
-				model->Render(Camera::getInstance().getViewMatrix());
-			}
-			
+			Engine::getInstance().Render(Camera::getInstance().getViewMatrix());
 			//Cambiamos buffers
 			glFlush();
 			glfwSwapBuffers(window);
@@ -125,34 +110,8 @@ void main() {
 
 }
 
-void GenerateDesertRocks()
-{
-	Model* rock1; 
-	rock1 = Engine::getInstance().LoadOBJModel(0, "Assets/Models/rock.obj", "Assets/Textures/rock/rock_bc.png", "Assets/Materials/rock.mtl",GL_TEXTURE0, ModelType::Rock);
-	rock1->_position = glm::vec3{ 0.f,0.f,0.f };
-	rock1->_rotation = glm::vec3{ 0.f,0.f,0.f };
-	rock1->_scale = glm::vec3{ 1.f,1.f,1.f };
-
-	models.push_back(rock1);
-}
 
 
-
-
-
-//Generating models logic
-void GenerateLandscape()
-{
-	//Floor with orange texture using porgram 0
-	Model* landscape;
-	landscape = Engine::getInstance().LoadOBJModel(0, "Assets/Models/landscape.obj", "Assets/Textures/landscape/sand_albedo.jpeg","Assets/Materials/landscape.mtl", GL_TEXTURE1, ModelType::Landscape);
-	landscape->_position = glm::vec3{ 0.f,0.f,5.f };
-	landscape->_rotation = glm::vec3{ 0.f,0.f,0.f };
-	landscape->_scale = glm::vec3{ 1.f,1.f,1.f };
-	
-	models.push_back(landscape);
-
-}
 
 
 
