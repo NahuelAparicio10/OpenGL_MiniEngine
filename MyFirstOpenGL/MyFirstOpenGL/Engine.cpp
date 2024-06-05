@@ -10,7 +10,7 @@ Engine::Engine()
 	GameObject* sun = new GameObject();
 	sun->AddComponent<MeshRenderer>(new Model(*_modelManager->GetModelByType(ModelType::Sun)), sun);
 	GameObject* moon = new GameObject();
-	moon->AddComponent<MeshRenderer>(new Model(*_modelManager->GetModelByType(ModelType::Sun)), moon);
+	moon->AddComponent<MeshRenderer>(new Model(*_modelManager->GetModelByType(ModelType::Moon)), moon);
 	_objectsManager = new ObjectsManager(sun, moon);
 }
 

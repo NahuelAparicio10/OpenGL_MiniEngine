@@ -11,6 +11,8 @@ public:
 	void UpdateObjects();
 	void RenderObjects(glm::mat4 view);
 	void UpdateOrbit(GameObject* object, float elapsedTime);
+	GameObject* GetSun() { return _sun; }
+	GameObject* GetMoon() { return _moon; }
 private:
 	GameObject* _sun;
 	GameObject* _moon;

@@ -2,13 +2,15 @@
 #include "Engine.h"
 MapManager::MapManager()
 {
-	_numOfObjects = 16;
+	_numOfObjects = 4;
 	spawnPoints.push_back({ 0, 0, 0 });
 	spawnPoints.push_back({ 50, 0, 50 });
 	spawnPoints.push_back({ 50, 0, -50 });
 	spawnPoints.push_back({ -50, 0, 50 });
 	spawnPoints.push_back({ 25, 0, 25 });
 	spawnPoints.push_back({ -25, 0, 25 });
+
+	gradientColors = LoadGradientColors("Assets/Textures/Colores.png");
 }
 
 void MapManager::InitializeMap()
@@ -20,7 +22,7 @@ void MapManager::InitializeMap()
 
 	gameObjects.push_back(lanscape);
 
-
+	// This will generate as many as _numOfObjects for each Obj
 	GenerateGameObject(ModelType::Rock);
 
 	GenerateGameObject(ModelType::Bush);
@@ -54,10 +56,49 @@ void MapManager::SetObjectsTransform(Transform* transform)
 	transform->_rotation = { Utils::RandomRange(0, 5), Utils::RandomRange(0, 360), Utils::RandomRange(0, 5) };
 }
 
+// -- Renders all the static objects of the map
+
 void MapManager::RenderMapObjects(glm::mat4 view)
 {
 	for (GameObject* gameObject : gameObjects)
 	{
 		gameObject->GetComponent<MeshRenderer>()->Render(view);
 	}
+}
+
+// -- Given a filepath returns a vector of colors like a gradient, which we will use for interpolate between them after.
+// Each row in the image represents a color
+
+std::vector<glm::vec3> MapManager::LoadGradientColors(const char* filepath) {
+	int width, height, channels;
+	unsigned char* data = stbi_load(filepath, &width, &height, &channels, 0);
+
+	if (!data) {
+		std::cerr << "Failed to load texture" << std::endl;
+		return {};
+	}
+
+	std::vector<glm::vec3> colors(width);
+
+	// gets the colors of the textures by x axis 
+	for (int x = 0; x < width; ++x) {
+		int index = x * channels;
+		glm::vec3 color(data[index] / 255.0f, data[index + 1] / 255.0f, data[index + 2] / 255.0f);
+		colors[x] = color;
+	}
+
+	stbi_image_free(data);
+	return colors;
+}
+
+// -- Returns the color depending on the time of the day, given a color's gradient
+
+glm::vec3 MapManager::GetInterpolatedColor(float timeOfDay) {
+
+	float scaledTime = timeOfDay * (gradientColors.size() - 1);
+	int index1 = static_cast<int>(scaledTime);
+	int index2 = (index1 + 1) % gradientColors.size();
+	float t = scaledTime - index1;
+
+	return glm::mix(gradientColors[index1], gradientColors[index2], t);
 }

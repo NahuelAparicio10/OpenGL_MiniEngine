@@ -12,10 +12,8 @@ out vec4 fragColor;
 uniform float opacity;
 uniform vec3 ambientColor;
 uniform float ambientIntensity;
-uniform vec3 sunColor;
-uniform vec3 moonColor;
-uniform vec3 sunDirection;
-uniform vec3 moonDirection;
+uniform vec3 astroColor;
+uniform vec3 astroDirection;
 uniform float minDiffuseLight;
 
 struct Light {
@@ -31,15 +29,11 @@ void main() {
     vec3 normal = normalize(normalsFragmentShader);
 
     // Calculate the sunlight contribution
-    float sunLightIntensity = max(dot(normal, sunDirection), 0.0);
+    float sunLightIntensity = max(dot(normal, astroDirection), 0.0);
     sunLightIntensity = max(sunLightIntensity, minDiffuseLight);
 
-    // Calculate the moonlight contribution
-    float moonLightIntensity = max(dot(normal, moonDirection), 0.0);
-    moonLightIntensity = max(moonLightIntensity, minDiffuseLight);
-
     // Combine the sunlight and moonlight contributions
-    vec3 lighting = (sunColor * sunLightIntensity) + (moonColor * moonLightIntensity);
+    vec3 lighting = (astroColor * sunLightIntensity) ;
     vec3 ambient = ambientColor * ambientIntensity;
 
     fragColor = vec4(baseColor.rgb * (ambient + lighting), opacity);

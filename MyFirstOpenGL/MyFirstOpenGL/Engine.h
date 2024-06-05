@@ -17,7 +17,6 @@ public:
 	void Update(GLFWwindow* window);
 	void Render(glm::mat4 view);
 	
-
 	//Getters
 	InputManager* getInputManager() { return _inputManager; };
 	TimeManager* GetTimeManager() { return _timeManager; };

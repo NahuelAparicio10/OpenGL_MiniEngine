@@ -2,8 +2,8 @@
 #include "Engine.h"
 ObjectsManager::ObjectsManager(GameObject* sun, GameObject* moon) : _sun(sun), _moon(moon)
 {
-	_sun->GetComponent<Transform>()->_position = { 100, 0, 0 };
-	_moon->GetComponent<Transform>()->_position = { -100, 0, 0 };
+	_sun->GetComponent<Transform>()->_position = { -100, 0, 0 };
+	_moon->GetComponent<Transform>()->_position = { 100, 0, 0 };
 	_moon->GetComponent<Transform>()->_scale = { 0.5f, 0.5f, 0.5f };
     _angularSpeed = 2.0f * 3.14f / 40.f;
 }
@@ -22,7 +22,7 @@ void ObjectsManager::UpdateOrbit(GameObject* object, float elapsedTime)
 {
     glm::vec3 currentPos = object->GetComponent<Transform>()->_position;
 
-    // Calcula el ángulo de la órbita basado en el tiempo y la velocidad angular
+    // Angle based on time and angular speed
     float angle = _angularSpeed * elapsedTime;
 
     float x = currentPos.x * cos(angle) - currentPos.y * sin(angle);
