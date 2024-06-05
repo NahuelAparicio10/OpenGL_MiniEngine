@@ -27,20 +27,20 @@ void Camera::LookAt()
 
 void Camera::UpdateCamPosition(GLFWwindow* window)
 {
-	float tempMultiplier = _speed * Engine::getInstance().getTimeManager()->getDeltaTime();
-	if (Engine::getInstance().getInputManager()->IsWPressed())
+	float tempMultiplier = _speed * Engine::GetInstance().GetTimeManager()->GetDeltaTime();
+	if (Engine::GetInstance().getInputManager()->IsWPressed())
 	{
 		_transform->_position += tempMultiplier * _transform->_vectorFront;
 	}
-	if (Engine::getInstance().getInputManager()->IsSPressed())
+	if (Engine::GetInstance().getInputManager()->IsSPressed())
 	{
 		_transform->_position -= tempMultiplier * _transform->_vectorFront;
 	}
-	if (Engine::getInstance().getInputManager()->IsAPressed())
+	if (Engine::GetInstance().getInputManager()->IsAPressed())
 	{
 		_transform->_position -= glm::normalize(glm::cross(_transform->_vectorFront, _transform->_localVectorUp) * tempMultiplier);
 	}
-	if (Engine::getInstance().getInputManager()->IsDPressed())
+	if (Engine::GetInstance().getInputManager()->IsDPressed())
 	{
 		_transform->_position += glm::normalize(glm::cross(_transform->_vectorFront, _transform->_localVectorUp) * tempMultiplier);
 	}

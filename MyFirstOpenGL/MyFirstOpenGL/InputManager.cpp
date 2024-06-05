@@ -3,10 +3,11 @@
 InputManager::InputManager()
 {
 	mouse = new Mouse();
-	wPressed = false;
-	aPressed = false;
-	sPressed = false;
-	dPressed = false;
+	_wPressed = false;
+	_aPressed = false;
+	_sPressed = false;
+	_dPressed = false;
+	_fPressed = false;
 
 }
 
@@ -18,10 +19,11 @@ void InputManager::HandleInputs(GLFWwindow* window)
 
 void InputManager::UpdateInputs(GLFWwindow* window)
 {
-	wPressed = glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS;
-	aPressed = glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS;
-	sPressed = glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS;
-	dPressed = glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS;
+	_wPressed = glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS;
+	_aPressed = glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS;
+	_sPressed = glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS;
+	_dPressed = glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS;
+	_fPressed = glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS;
 }
 
 void InputManager::UpdateMouse(GLFWwindow* window)

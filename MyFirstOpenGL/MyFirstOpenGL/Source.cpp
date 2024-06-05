@@ -7,8 +7,6 @@
 #define WINDOW_WIDTH 800
 #define WINDOW_HEIGHT 600
 
-
-
 void Resize_Window(GLFWwindow* window, int iFrameBufferWidth, int iFrameBufferHeight) {
 
 	//Definir nuevo tamaño del viewport
@@ -16,7 +14,7 @@ void Resize_Window(GLFWwindow* window, int iFrameBufferWidth, int iFrameBufferHe
 	glUniform2f(glGetUniformLocation(ProgramManager::getInstance().compiledPrograms[0], "windowSize"), iFrameBufferWidth, iFrameBufferHeight);
 }
 
-void main() {	
+int main() {	
 	
 	//Definir semillas del rand según el tiempo
 	srand(static_cast<unsigned int>(time(NULL)));
@@ -60,12 +58,9 @@ void main() {
 	//Inicializamos GLEW y controlamos errores
 	if (glewInit() == GLEW_OK) {
 
-		Engine::getInstance().Init();
-	
-		//Cargo Modelos
+		Engine::GetInstance().Init();
 
 		//Definimos color para limpiar el buffer de color
-		glClearColor(5.0f, 186.f, 152.f, 1.0f);
 
 		//Definimos modo de dibujo para cada cara
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -80,9 +75,15 @@ void main() {
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
 			// Updates time, inputs and camera
-			Engine::getInstance().Update(window);
+			Engine::GetInstance().Update(window);
 
-			Engine::getInstance().Render(Camera::getInstance().getViewMatrix());
+			Engine::GetInstance().Render(Camera::getInstance().getViewMatrix());
+
+			// Calcular la hora del día (normalizada)
+			float timeOfDay = Engine::GetInstance().GetTimeManager()->CalculateTimeOfDay();
+			glm::vec3 currentColor =Engine::GetInstance().GetMapManager()->GetInterpolatedColor(timeOfDay);
+
+			glClearColor(currentColor.r, currentColor.g, currentColor.b, 1.0f);
 			//Cambiamos buffers
 			glFlush();
 			glfwSwapBuffers(window);
@@ -104,9 +105,7 @@ void main() {
 	glfwTerminate();
 
 
-
-
-
+	return 0;
 }
 
 

@@ -27,7 +27,7 @@ struct Mouse
 	void setLastPositionY(float _lastPositionY) { lastPositionY = _lastPositionY; }
 	void setFirstMouse(bool _firstMouse) { firstMouse = _firstMouse; }
 
-	void setMouseDirection(GLFWwindow* window, double xpos, double ypos)
+	void setMouseDirection(GLFWwindow* window, float xpos, float ypos)
 	{
 		if (firstMouse)
 		{
@@ -73,10 +73,11 @@ public:
 	// Getters
 	Mouse* getMouse() { return mouse; };
 
-	bool IsWPressed() { return wPressed; }
-	bool IsAPressed() { return aPressed; }
-	bool IsSPressed() { return sPressed; }
-	bool IsDPressed() { return dPressed; }
+	bool IsWPressed() { return _wPressed; }
+	bool IsAPressed() { return _aPressed; }
+	bool IsSPressed() { return _sPressed; }
+	bool IsDPressed() { return _dPressed; }
+	bool IsGPressed() { return _fPressed; }
 
 	// Setters
 
@@ -85,10 +86,11 @@ private:
 	void UpdateInputs(GLFWwindow* window);
 	void UpdateMouse(GLFWwindow* window);
 
-	bool wPressed;
-	bool aPressed;
-	bool sPressed;
-	bool dPressed;
+	bool _wPressed;
+	bool _aPressed;
+	bool _sPressed;
+	bool _dPressed;
+	bool _fPressed;
 };
 
 

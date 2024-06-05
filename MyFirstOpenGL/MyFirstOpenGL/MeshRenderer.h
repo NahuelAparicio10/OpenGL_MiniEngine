@@ -3,7 +3,6 @@
 #include "Material.h"
 #include "Component.h"
 #include "Camera.h"
-#include "Engine.h"
 
 
 class MeshRenderer : public Component
@@ -14,6 +13,8 @@ public:
 	const std::type_index GetType() override;
 
 private:
+	glm::vec3 CalculateLightDirection(float angleSun, glm::vec3 sunDirection, glm::vec3 moonDirection);
+	float GetLightFactor(float angleSun);
 	GameObject* _owner;
 	Model* _model;
 	Transform* _transform;
