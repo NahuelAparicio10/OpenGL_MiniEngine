@@ -93,6 +93,9 @@
     <ClCompile Include="Camera.cpp">
       <Filter>Archivos de origen\GameObjects</Filter>
     </ClCompile>
+    <ClCompile Include="SpotLight.cpp">
+      <Filter>Archivos de origen\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="MyFirstVertexShader.glsl">
@@ -165,6 +168,9 @@
     </ClInclude>
     <ClInclude Include="GameObject.h">
       <Filter>Archivos de encabezado\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="SpotLight.h">
+      <Filter>Archivos de encabezado\Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

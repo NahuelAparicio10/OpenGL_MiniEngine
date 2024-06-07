@@ -2,11 +2,10 @@
 #pragma once
 #include "GameObject.h"
 
-enum CameraState { Orbit = 0, FocusTroll1 = 1, FocusTroll2 = 2, FocusTroll3 = 3 };
 class Camera : public GameObject
 {
 public:
-	static Camera& getInstance() { static Camera instance; return instance; }
+	static Camera& GetInstance() { static Camera instance; return instance; }
 	Camera();
 
 
@@ -29,13 +28,9 @@ public:
 	void setaspectRatio(float aspectRatio) { _aspectRatio = aspectRatio; }
 	void setfNear(float fNear) { _fNear = fNear; }
 	void set_fFar(float fFar) { _fFar = fFar; }
-	void setOrbit(CameraState state) { myCameraState = state; }
 	void setXPos(float xPos) { _transform->_position.x = xPos; }
 	void setYPos(float yPos) { _transform->_position.y = yPos; }
 	void setVectorFront(glm::vec3 vFront) { _transform->_vectorFront = vFront; }
-
-
-	
 
 	void Update(GLFWwindow* window);
 	void LookAt();
@@ -51,11 +46,8 @@ private:
 	float _fNear;
 	float _fFar;
 	const float _speed;
-
-
 	
 	glm::mat4 _viewMatrix;
-	CameraState myCameraState;
 	Transform* _transform;
 	
 };

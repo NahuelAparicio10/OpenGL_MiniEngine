@@ -27,7 +27,8 @@ void Engine::Update(GLFWwindow* window)
 
 	_inputManager->HandleInputs(window);
 
-	Camera::getInstance().Update(window);
+	Camera::GetInstance().Update(window);
+
 
 }
 

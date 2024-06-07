@@ -5,6 +5,7 @@
 #include "ModelManager.h"
 #include "MapManager.h"
 #include "ObjectsManager.h"
+#include "SpotLight.h"
 
 class Engine
 {
@@ -18,7 +19,7 @@ public:
 	void Render(glm::mat4 view);
 	
 	//Getters
-	InputManager* getInputManager() { return _inputManager; };
+	InputManager* GetInputManager() { return _inputManager; };
 	TimeManager* GetTimeManager() { return _timeManager; };
 	ModelManager* GetModelManager() { return _modelManager; };
 	MapManager* GetMapManager() { return _mapManager; };

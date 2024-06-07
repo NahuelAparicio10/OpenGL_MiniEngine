@@ -23,7 +23,13 @@ void InputManager::UpdateInputs(GLFWwindow* window)
 	_aPressed = glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS;
 	_sPressed = glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS;
 	_dPressed = glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS;
-	_fPressed = glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS;
+	bool isFPressedNow = glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS;
+
+	if (isFPressedNow && !_fPressed)
+	{
+		_lanternEnabled = !_lanternEnabled;
+	}
+	_fPressed = isFPressedNow;
 }
 
 void InputManager::UpdateMouse(GLFWwindow* window)
@@ -32,5 +38,5 @@ void InputManager::UpdateMouse(GLFWwindow* window)
 
 	double xpos, ypos;
 	glfwGetCursorPos(window, &xpos, &ypos);
-	getMouse()->setMouseDirection(window, xpos, ypos);
+	GetMouse()->setMouseDirection(window, xpos, ypos);
 }
