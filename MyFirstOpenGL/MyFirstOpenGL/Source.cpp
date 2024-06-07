@@ -77,7 +77,7 @@ int main() {
 			// Updates time, inputs and camera
 			Engine::GetInstance().Update(window);
 
-			Engine::GetInstance().Render(Camera::getInstance().getViewMatrix());
+			Engine::GetInstance().Render(Camera::GetInstance().getViewMatrix());
 
 			// Calcular la hora del día (normalizada)
 			float timeOfDay = Engine::GetInstance().GetTimeManager()->CalculateTimeOfDay();

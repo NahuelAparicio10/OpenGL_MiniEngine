@@ -5,6 +5,7 @@
 #include "ModelManager.h"
 #include "MapManager.h"
 #include "ObjectsManager.h"
+#include "SpotLight.h"
 
 class Engine
 {

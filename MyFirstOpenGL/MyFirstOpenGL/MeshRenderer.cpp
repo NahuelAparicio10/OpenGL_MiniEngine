@@ -3,12 +3,10 @@
 MeshRenderer::MeshRenderer(Model* model, GameObject* owner) : _owner(owner), _model(model)
 {
     _transform = _owner->GetComponent<Transform>();
-
 }
 
 void MeshRenderer::Render(glm::mat4 view)
 {
-    // Verificar si _model es válido
     GLuint myProgram = ProgramManager::getInstance().compiledPrograms[_model->GetProgramID()];
     glUseProgram(myProgram);
 
@@ -16,7 +14,7 @@ void MeshRenderer::Render(glm::mat4 view)
     glm::vec3 totalRotation = glm::radians(_transform->_rotation);
     glm::mat4 rotationMatrix = glm::rotate(glm::mat4(1.0f), totalRotation.x, glm::vec3(1.0f, 0.0f, 0.0f)) * glm::rotate(glm::mat4(1.0f), totalRotation.y, glm::vec3(0.0f, 1.0f, 0.0f)) * glm::rotate(glm::mat4(1.0f), totalRotation.z, glm::vec3(0.0f, 0.0f, 1.0f));
     glm::mat4 scaleMatrix = ProgramManager::getInstance().GenerateScaleMatrix(_transform->_scale);
-    glm::mat4 projection = glm::perspective(Camera::getInstance().getfFov(), (float)WINDOW_WIDTH / (float)WINDOW_HEIGHT, Camera::getInstance().getfNear(), Camera::getInstance().getfFar());
+    glm::mat4 projection = glm::perspective(Camera::GetInstance().getfFov(), (float)WINDOW_WIDTH / (float)WINDOW_HEIGHT, Camera::GetInstance().getfNear(), Camera::GetInstance().getfFar());
 
     glUniform2f(glGetUniformLocation(myProgram, "windowSize"), WINDOW_WIDTH, WINDOW_HEIGHT);
     glUniform1i(glGetUniformLocation(myProgram, "textureSampler"), (int)_model->GetType());
@@ -57,6 +55,19 @@ void MeshRenderer::Render(glm::mat4 view)
     glUniform3fv(glGetUniformLocation(myProgram, "astroDirection"), 1, glm::value_ptr(glm::normalize(direction)));
     glUniform1f(glGetUniformLocation(myProgram, "opacity"), material.opacity);
     glUniform1f(glGetUniformLocation(myProgram, "minDiffuseLight"), 0.15f);
+
+
+    glm::vec3 cameraFront = Camera::GetInstance().getVectorFront();
+    glm::vec3 cameraPosition = Camera::GetInstance().GetPosition();
+    glm::vec3 cameraDirection = glm::normalize(cameraFront - cameraPosition);
+
+    glUniform3fv(glGetUniformLocation(myProgram, "spotLightDir"), 1, glm::value_ptr(glm::normalize(cameraDirection)));
+
+    glUniform3fv(glGetUniformLocation(myProgram, "spotLightPos"), 1, glm::value_ptr(cameraPosition));
+    glUniform1f(glGetUniformLocation(myProgram, "spotLightCutOff"), glm::cos(glm::radians(5.5f)));
+    glUniform1f(glGetUniformLocation(myProgram, "spotLightMaxDist"), 100.0f);
+    glUniform3fv(glGetUniformLocation(myProgram, "spotLightColor"), 1, glm::value_ptr(glm::vec3(1.0f, 1.0f, 1.0f)));
+    glUniform1f(glGetUniformLocation(myProgram, "spotLightIntensity"), 1.0f);
 
     //Vinculo su VAO para ser usado
     glBindVertexArray(_model->GetVAO());

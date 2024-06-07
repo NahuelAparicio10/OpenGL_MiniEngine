@@ -58,7 +58,7 @@ struct Mouse
 		direction.y = sin(glm::radians(pitch));
 		direction.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
 
-		Camera::getInstance().setVectorFront(glm::normalize(direction));
+		Camera::GetInstance().setVectorFront(glm::normalize(direction));
 	}
 
 

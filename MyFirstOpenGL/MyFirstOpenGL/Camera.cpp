@@ -1,8 +1,10 @@
 #include "Camera.h"
 #include "Engine.h"
+#include "SpotLight.h"
 
 Camera::Camera() : _fFov(45.0f), _aspectRatio(1.0), _fNear(0.1), _fFar(20000.0),_speed(200)
 {
+	//AddComponent<SpotLight>();
 	_transform = GetComponent<Transform>();
 	_transform->_position = { 0.f,2.f,-5.f };
 	_transform->_rotation = { 0.f,0.f,0.f };
@@ -44,6 +46,7 @@ void Camera::UpdateCamPosition(GLFWwindow* window)
 	{
 		_transform->_position += glm::normalize(glm::cross(_transform->_vectorFront, _transform->_localVectorUp) * tempMultiplier);
 	}
+	std::cout << getVectorFront().x << " " << getVectorFront().y << " " << getVectorFront().z << std::endl;
 }
 
 glm::mat4 Camera::MatrixView(glm::mat4 viewMat)

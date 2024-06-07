@@ -31,6 +31,7 @@
     <ClCompile Include="ObjectsManager.cpp" />
     <ClCompile Include="ProgramManager.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="SpotLight.cpp" />
     <ClCompile Include="Stb.cpp" />
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="TimeManager.cpp" />
@@ -58,6 +59,7 @@
     <ClInclude Include="ModelManager.h" />
     <ClInclude Include="ObjectsManager.h" />
     <ClInclude Include="ProgramManager.h" />
+    <ClInclude Include="SpotLight.h" />
     <ClInclude Include="Texture.h" />
     <ClInclude Include="TimeManager.h" />
     <ClInclude Include="Transform.h" />
