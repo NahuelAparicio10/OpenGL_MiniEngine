@@ -61,13 +61,17 @@ void MeshRenderer::Render(glm::mat4 view)
     glm::vec3 cameraPosition = Camera::GetInstance().GetPosition();
     glm::vec3 cameraDirection = glm::normalize(cameraFront - cameraPosition);
 
-    glUniform3fv(glGetUniformLocation(myProgram, "spotLightDir"), 1, glm::value_ptr(glm::normalize(cameraDirection)));
+    glUniform1i(glGetUniformLocation(myProgram, "isEnableLantern"), Engine::GetInstance().GetInputManager()->IsLanternEnabled());
 
+    glUniform3fv(glGetUniformLocation(myProgram, "spotLightDir"), 1, glm::value_ptr(glm::normalize(Camera::GetInstance().getVectorFront())));
     glUniform3fv(glGetUniformLocation(myProgram, "spotLightPos"), 1, glm::value_ptr(cameraPosition));
-    glUniform1f(glGetUniformLocation(myProgram, "spotLightCutOff"), glm::cos(glm::radians(5.5f)));
+    glUniform1f(glGetUniformLocation(myProgram, "spotLightInnerCutOff"), glm::cos(glm::radians(10.0f)));
+    glUniform1f(glGetUniformLocation(myProgram, "spotLightOuterCutOff"), glm::cos(glm::radians(20.0f)));
     glUniform1f(glGetUniformLocation(myProgram, "spotLightMaxDist"), 100.0f);
     glUniform3fv(glGetUniformLocation(myProgram, "spotLightColor"), 1, glm::value_ptr(glm::vec3(1.0f, 1.0f, 1.0f)));
     glUniform1f(glGetUniformLocation(myProgram, "spotLightIntensity"), 1.0f);
+    glUniform1f(glGetUniformLocation(myProgram, "spotLightInnerAngle"), 15.5f);
+    glUniform1f(glGetUniformLocation(myProgram, "spotLightOuterAngle"), 18.5f);
 
     //Vinculo su VAO para ser usado
     glBindVertexArray(_model->GetVAO());

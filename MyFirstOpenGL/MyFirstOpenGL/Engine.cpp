@@ -29,6 +29,7 @@ void Engine::Update(GLFWwindow* window)
 
 	Camera::GetInstance().Update(window);
 
+
 }
 
 void Engine::Render(glm::mat4 view)

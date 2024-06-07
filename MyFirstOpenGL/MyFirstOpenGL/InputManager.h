@@ -71,13 +71,14 @@ public:
 	void HandleInputs(GLFWwindow* window);
 
 	// Getters
-	Mouse* getMouse() { return mouse; };
+	Mouse* GetMouse() { return mouse; };
 
 	bool IsWPressed() { return _wPressed; }
 	bool IsAPressed() { return _aPressed; }
 	bool IsSPressed() { return _sPressed; }
 	bool IsDPressed() { return _dPressed; }
-	bool IsGPressed() { return _fPressed; }
+	bool IsFPressed() { return _fPressed; }
+	bool IsLanternEnabled() { return _lanternEnabled; }
 
 	// Setters
 
@@ -91,6 +92,7 @@ private:
 	bool _sPressed;
 	bool _dPressed;
 	bool _fPressed;
+	bool _lanternEnabled;
 };
 
 

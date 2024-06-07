@@ -30,23 +30,23 @@ void Camera::LookAt()
 void Camera::UpdateCamPosition(GLFWwindow* window)
 {
 	float tempMultiplier = _speed * Engine::GetInstance().GetTimeManager()->GetDeltaTime();
-	if (Engine::GetInstance().getInputManager()->IsWPressed())
+	if (Engine::GetInstance().GetInputManager()->IsWPressed())
 	{
 		_transform->_position += tempMultiplier * _transform->_vectorFront;
 	}
-	if (Engine::GetInstance().getInputManager()->IsSPressed())
+	if (Engine::GetInstance().GetInputManager()->IsSPressed())
 	{
 		_transform->_position -= tempMultiplier * _transform->_vectorFront;
 	}
-	if (Engine::GetInstance().getInputManager()->IsAPressed())
+	if (Engine::GetInstance().GetInputManager()->IsAPressed())
 	{
 		_transform->_position -= glm::normalize(glm::cross(_transform->_vectorFront, _transform->_localVectorUp) * tempMultiplier);
 	}
-	if (Engine::GetInstance().getInputManager()->IsDPressed())
+	if (Engine::GetInstance().GetInputManager()->IsDPressed())
 	{
 		_transform->_position += glm::normalize(glm::cross(_transform->_vectorFront, _transform->_localVectorUp) * tempMultiplier);
 	}
-	std::cout << getVectorFront().x << " " << getVectorFront().y << " " << getVectorFront().z << std::endl;
+
 }
 
 glm::mat4 Camera::MatrixView(glm::mat4 viewMat)
