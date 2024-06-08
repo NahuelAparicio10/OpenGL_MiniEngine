@@ -12,8 +12,6 @@
 #include <stb_image.h>
 
 
-
-
 struct ShaderProgram {
 	GLuint vertexShader = 0;
 	GLuint geometryShader = 0;
@@ -22,7 +20,7 @@ struct ShaderProgram {
 class ProgramManager
 {
 public:
-	static ProgramManager& getInstance() {static ProgramManager instance;return instance;}
+	static ProgramManager& GetInstance() {static ProgramManager instance;return instance;}
 	ProgramManager();
 	GLuint CreateProgram(const ShaderProgram& shaders);
 	GLuint LoadVertexShader(const std::string& filePath);

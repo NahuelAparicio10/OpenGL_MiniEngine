@@ -1,8 +1,10 @@
 #include "MapManager.h"
 #include "Engine.h"
+
 MapManager::MapManager()
 {
 	_numOfObjects = 4;
+	_numOfGrass = 50;
 	spawnPoints.push_back({ 0, 0, 0 });
 	spawnPoints.push_back({ 50, 0, 50 });
 	spawnPoints.push_back({ 50, 0, -50 });
@@ -23,20 +25,27 @@ void MapManager::InitializeMap()
 	gameObjects.push_back(lanscape);
 
 	// This will generate as many as _numOfObjects for each Obj
-	GenerateGameObject(ModelType::Rock);
+	GenerateGameObject(ModelType::Rock, _numOfObjects);
 
-	GenerateGameObject(ModelType::Bush);
+	GenerateGameObject(ModelType::Bush, _numOfObjects);
 
-	GenerateGameObject(ModelType::Tree);
+	GenerateGameObject(ModelType::Tree, _numOfObjects);
+
+	GenerateGameObject(ModelType::Grass, _numOfGrass);
+
 }
 
-void MapManager::GenerateGameObject(ModelType type)
+void MapManager::GenerateGameObject(ModelType type, int numToGenerate)
 {
-	for (int i = 0; i < _numOfObjects; i++)
+	for (int i = 0; i < numToGenerate; i++)
 	{
 		GameObject* go = new GameObject();
 		go->AddComponent<MeshRenderer>(new Model(*Engine::GetInstance().GetModelManager()->GetModelByType(type)), go);
 		SetObjectsTransform(go->GetComponent<Transform>());
+		if (type == ModelType::Grass)
+		{
+			SetRandomScale(go->GetComponent<Transform>(), 2, 3);
+		}
 		gameObjects.push_back(go);
 	}
 }
@@ -51,9 +60,14 @@ void MapManager::SetObjectsTransform(Transform* transform)
 	{
 		transform->_position = glm::vec3{ Utils::RandomRange(-50.f, 50.f), 0, Utils::RandomRange(-50.f, 50.f) };
 	}
-	float randomScale = Utils::RandomRange(0.5f, 1.5f);
-	transform->_scale = { randomScale, randomScale, randomScale };
+	SetRandomScale(transform, 0.5f, 1.5f);
 	transform->_rotation = { Utils::RandomRange(0, 5), Utils::RandomRange(0, 360), Utils::RandomRange(0, 5) };
+}
+
+void MapManager::SetRandomScale(Transform* transform, float minScale, float maxScale)
+{
+	float randomScale = Utils::RandomRange(minScale, maxScale);
+	transform->_scale = { randomScale, randomScale, randomScale };
 }
 
 // -- Renders all the static objects of the map

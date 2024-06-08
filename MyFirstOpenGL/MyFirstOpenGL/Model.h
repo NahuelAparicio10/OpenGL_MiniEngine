@@ -10,7 +10,7 @@
 #define WINDOW_HEIGHT 880
 
 
-enum ModelType { Terrain = 0, Rock, Bush, Tree, Sun, Moon };
+enum ModelType { Terrain = 0, Rock, Bush, Tree, Sun, Moon, Grass };
 
 class Model {
 public:
