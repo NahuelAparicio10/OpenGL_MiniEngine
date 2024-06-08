@@ -2,26 +2,34 @@
 #include "Model.h"
 #include "InputManager.h"
 #include "TimeManager.h"
+#include "ModelManager.h"
+#include "MapManager.h"
+#include "ObjectsManager.h"
+#include "SpotLight.h"
 
 class Engine
 {
 public:
-	//Singleton to call from everywhere
-	static Engine& getInstance() { static Engine instance; return instance; }
+	static Engine& GetInstance() { static Engine instance; return instance; }
 	Engine();
 
-	//Functions utils
 	void Init();
 	void Update(GLFWwindow* window);
-	Model* LoadOBJModel(int IDProgram, const std::string& filePath, const char* texturefilePath, const std::string& matFilePath,GLenum textureUnit, ModelType type);
-
+	void Render();
+	
 	//Getters
-	InputManager* getInputManager() { return inputManager; };
-	TimeManager* getTimeManager() { return timeManager; };
+	InputManager* GetInputManager() { return _inputManager; };
+	TimeManager* GetTimeManager() { return _timeManager; };
+	ModelManager* GetModelManager() { return _modelManager; };
+	MapManager* GetMapManager() { return _mapManager; };
+	ObjectsManager* GetObjectsManager() { return _objectsManager; };
 	
 private:
-	InputManager* inputManager;
-	TimeManager* timeManager;
+	InputManager* _inputManager;
+	TimeManager* _timeManager;
+	ModelManager* _modelManager;
+	MapManager* _mapManager;
+	ObjectsManager* _objectsManager;
 
 	Engine(const Engine&) = delete;
 	Engine& operator=(const Engine&) = delete;

@@ -1,28 +1,19 @@
 #include "ProgramManager.h"
 #include "Texture.h"
 #include "Engine.h"
-#include "Source.h"
-#include "Camera.h"
-
+#include "MeshRenderer.h"
 
 #define WINDOW_WIDTH 800
 #define WINDOW_HEIGHT 600
 
-
-std::vector<Model*> models;
-Texture* _texture;
 void Resize_Window(GLFWwindow* window, int iFrameBufferWidth, int iFrameBufferHeight) {
-
 
 	//Definir nuevo tamaño del viewport
 	glViewport(0, 0, iFrameBufferWidth, iFrameBufferHeight);
-	glUniform2f(glGetUniformLocation(ProgramManager::getInstance().compiledPrograms[0], "windowSize"), iFrameBufferWidth, iFrameBufferHeight);
+	glUniform2f(glGetUniformLocation(ProgramManager::GetInstance().compiledPrograms[0], "windowSize"), iFrameBufferWidth, iFrameBufferHeight);
 }
 
-
-
-
-void main() {	
+int main() {	
 	
 	//Definir semillas del rand según el tiempo
 	srand(static_cast<unsigned int>(time(NULL)));
@@ -65,18 +56,10 @@ void main() {
 	
 	//Inicializamos GLEW y controlamos errores
 	if (glewInit() == GLEW_OK) {
-		Engine::getInstance().Init();
-	
-		//Cargo Modelos
-		GenerateLandscape();
-		//GenerateTroll();
-		//GenerateRocks();
-		//GenerateClouds();
-		GenerateDesertRocks();
-	
+
+		Engine::GetInstance().Init();
 
 		//Definimos color para limpiar el buffer de color
-		glClearColor(5.0f, 186.f, 152.f, 1.0f);
 
 		//Definimos modo de dibujo para cada cara
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -91,14 +74,15 @@ void main() {
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
 			// Updates time, inputs and camera
-			Engine::getInstance().Update(window);
+			Engine::GetInstance().Update(window);
 
-			//Render models
-			for (Model *model : models)
-			{
-				model->Render(Camera::getInstance().getViewMatrix());
-			}
-			
+			Engine::GetInstance().Render();
+
+			// Calcular la hora del día (normalizada)
+			float timeOfDay = Engine::GetInstance().GetTimeManager()->CalculateTimeOfDay();
+			glm::vec3 currentColor =Engine::GetInstance().GetMapManager()->GetInterpolatedColor(timeOfDay);
+
+			glClearColor(currentColor.r, currentColor.g, currentColor.b, 1.0f);
 			//Cambiamos buffers
 			glFlush();
 			glfwSwapBuffers(window);
@@ -106,8 +90,8 @@ void main() {
 		glUseProgram(0);
 
 		//We delete programs to avoid overloaded info
-		for (int i = 0; i < 4; i++) {
-			glDeleteProgram(ProgramManager::getInstance().compiledPrograms[i]);
+		for (int i = 0; i < ProgramManager::GetInstance().compiledPrograms.size(); i++) {
+			glDeleteProgram(ProgramManager::GetInstance().compiledPrograms[i]);
 		}
 
 	}
@@ -119,40 +103,11 @@ void main() {
 	//Terminate GLFW
 	glfwTerminate();
 
-
-
-
-
-}
-
-void GenerateDesertRocks()
-{
-	Model* rock1; 
-	rock1 = Engine::getInstance().LoadOBJModel(0, "Assets/Models/rock.obj", "Assets/Textures/rock/rock_bc.png", "Assets/Materials/rock.mtl",GL_TEXTURE0, ModelType::Rock);
-	rock1->_position = glm::vec3{ 0.f,0.f,0.f };
-	rock1->_rotation = glm::vec3{ 0.f,0.f,0.f };
-	rock1->_scale = glm::vec3{ 1.f,1.f,1.f };
-
-	models.push_back(rock1);
+	return 0;
 }
 
 
 
-
-
-//Generating models logic
-void GenerateLandscape()
-{
-	//Floor with orange texture using porgram 0
-	Model* landscape;
-	landscape = Engine::getInstance().LoadOBJModel(0, "Assets/Models/landscape.obj", "Assets/Textures/landscape/sand_albedo.jpeg","Assets/Materials/landscape.mtl", GL_TEXTURE1, ModelType::Landscape);
-	landscape->_position = glm::vec3{ 0.f,0.f,5.f };
-	landscape->_rotation = glm::vec3{ 0.f,0.f,0.f };
-	landscape->_scale = glm::vec3{ 1.f,1.f,1.f };
-	
-	models.push_back(landscape);
-
-}
 
 
 

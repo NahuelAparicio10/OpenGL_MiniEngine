@@ -5,11 +5,17 @@ class TimeManager
 public:
 	TimeManager();
 	void HandleTime();
+	float CalculateTimeOfDay() const;
 
-	float getDeltaTime() { return deltaTime; };
+
+	float GetDeltaTime() { return _deltaTime; };
+	float GetElapsedTime() { return _elapsedTime; };
 
 private:
-	float deltaTime;
-	float lastFrameTime;
+	float _cycleDuration;
+
+	float _deltaTime;
+	float _lastFrameTime;
+	float _elapsedTime;
 };
 
