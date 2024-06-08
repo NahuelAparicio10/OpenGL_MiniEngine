@@ -33,11 +33,6 @@ public:
 	glm::mat4 GenerateRotationMatrix(glm::vec3 axis, float fDegrees);
 	glm::mat4 GenerateTranslationMatrix(glm::vec3 translation);
 
-	ShaderProgram * myFirstProgram;
-	ShaderProgram * mySecondProgram;
-	ShaderProgram * myThirdProgram;
-	ShaderProgram * myFourthProgram;
-	ShaderProgram * myFifthProgram;
 	std::vector<GLuint> compiledPrograms;
 
 private:

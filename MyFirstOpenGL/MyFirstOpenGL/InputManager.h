@@ -10,7 +10,6 @@
 #include "Primitive.h"
 #include "Camera.h"
 
-
 struct Mouse
 {
 	float yaw;
@@ -18,16 +17,17 @@ struct Mouse
 	float lastPositionX;
 	float lastPositionY;
 	bool firstMouse;
+	glm::vec3 mouseDir;
 
-	Mouse() : yaw(-90.0f), pitch(0.0f), lastPositionX(400), lastPositionY(300), firstMouse(true) {}
+	Mouse() : yaw(-90.0f), pitch(0.0f), lastPositionX(400), lastPositionY(300), firstMouse(true), mouseDir({0,0,0}) {}
 
-	void setYaw(float _yaw) { yaw = _yaw; }
-	void setPitch(float _pitch) { pitch = _pitch; }
-	void setLastPositionX(float _lastPositionX) { lastPositionX = _lastPositionX; }
-	void setLastPositionY(float _lastPositionY) { lastPositionY = _lastPositionY; }
-	void setFirstMouse(bool _firstMouse) { firstMouse = _firstMouse; }
+	void SetYaw(float _yaw) { yaw = _yaw; }
+	void SetPitch(float _pitch) { pitch = _pitch; }
+	void SetLastPositionX(float _lastPositionX) { lastPositionX = _lastPositionX; }
+	void SetLastPositionY(float _lastPositionY) { lastPositionY = _lastPositionY; }
+	void SetFirstMouse(bool _firstMouse) { firstMouse = _firstMouse; }
 
-	void setMouseDirection(GLFWwindow* window, float xpos, float ypos)
+	void SetMouseDirection(GLFWwindow* window, float xpos, float ypos)
 	{
 		if (firstMouse)
 		{
@@ -57,11 +57,8 @@ struct Mouse
 		direction.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
 		direction.y = sin(glm::radians(pitch));
 		direction.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
-
-		Camera::GetInstance().setVectorFront(glm::normalize(direction));
+		mouseDir = glm::normalize(direction);
 	}
-
-
 };
 
 class InputManager
@@ -72,14 +69,12 @@ public:
 
 	// Getters
 	Mouse* GetMouse() { return mouse; };
-
 	bool IsWPressed() { return _wPressed; }
 	bool IsAPressed() { return _aPressed; }
 	bool IsSPressed() { return _sPressed; }
 	bool IsDPressed() { return _dPressed; }
 	bool IsFPressed() { return _fPressed; }
-	bool IsLanternEnabled() { return _lanternEnabled; }
-
+	bool WasFPressed() { return _wasFPressed; }
 	// Setters
 
 private:
@@ -92,7 +87,7 @@ private:
 	bool _sPressed;
 	bool _dPressed;
 	bool _fPressed;
-	bool _lanternEnabled;
+	bool _wasFPressed;
 };
 
 

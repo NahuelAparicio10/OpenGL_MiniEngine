@@ -1,5 +1,4 @@
 #include "InputManager.h"
-
 InputManager::InputManager()
 {
 	mouse = new Mouse();
@@ -8,7 +7,7 @@ InputManager::InputManager()
 	_sPressed = false;
 	_dPressed = false;
 	_fPressed = false;
-
+	_wasFPressed = false;
 }
 
 void InputManager::HandleInputs(GLFWwindow* window)
@@ -23,20 +22,26 @@ void InputManager::UpdateInputs(GLFWwindow* window)
 	_aPressed = glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS;
 	_sPressed = glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS;
 	_dPressed = glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS;
+	_fPressed = glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS;
+
 	bool isFPressedNow = glfwGetKey(window, GLFW_KEY_F) == GLFW_PRESS;
 
-	if (isFPressedNow && !_fPressed)
+	if (isFPressedNow && !_wasFPressed)
 	{
-		_lanternEnabled = !_lanternEnabled;
+		_fPressed = true;
 	}
-	_fPressed = isFPressedNow;
+	else
+	{
+		_fPressed = false;
+	}
+
+	_wasFPressed = isFPressedNow;
 }
 
 void InputManager::UpdateMouse(GLFWwindow* window)
 {
 	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-
 	double xpos, ypos;
 	glfwGetCursorPos(window, &xpos, &ypos);
-	GetMouse()->setMouseDirection(window, xpos, ypos);
+	GetMouse()->SetMouseDirection(window, xpos, ypos);
 }

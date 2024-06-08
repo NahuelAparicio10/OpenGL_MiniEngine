@@ -27,15 +27,19 @@ void Engine::Update(GLFWwindow* window)
 
 	_inputManager->HandleInputs(window);
 
-	Camera::GetInstance().Update(window);
+	_objectsManager->GetCamera()->SetVectorFront(_inputManager->GetMouse()->mouseDir);
 
+	_objectsManager->GetCamera()->Update(window);
 
 }
 
-void Engine::Render(glm::mat4 view)
+void Engine::Render()
 {
-	_mapManager->RenderMapObjects(view);
-	_objectsManager->RenderObjects(view);
+	//Static Objects
+	_mapManager->RenderMapObjects(_objectsManager->GetCamera()->GetViewMatrix());
+
+	//Dynamic Objects
+	_objectsManager->RenderObjects(_objectsManager->GetCamera()->GetViewMatrix());
 }
 
 
