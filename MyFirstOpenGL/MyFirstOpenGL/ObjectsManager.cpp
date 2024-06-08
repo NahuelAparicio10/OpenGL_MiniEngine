@@ -2,6 +2,8 @@
 #include "Engine.h"
 ObjectsManager::ObjectsManager(GameObject* sun, GameObject* moon) : _sun(sun), _moon(moon)
 {
+    _camera = new Camera();
+    _lantern = new Lantern();
 	_sun->GetComponent<Transform>()->_position = { -100, 0, 0 };
 	_moon->GetComponent<Transform>()->_position = { 100, 0, 0 };
 	_moon->GetComponent<Transform>()->_scale = { 0.5f, 0.5f, 0.5f };
@@ -14,6 +16,8 @@ void ObjectsManager::UpdateObjects()
 
     UpdateOrbit(_sun, elapsedTime);
     UpdateOrbit(_moon, elapsedTime);
+
+    _lantern->UpdateLantern(_camera->GetPosition(), _camera->GetVectorFront());
 }
 
 // -- Updates GameObject position doing a orbit

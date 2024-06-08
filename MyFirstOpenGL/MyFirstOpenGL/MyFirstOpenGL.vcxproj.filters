@@ -96,28 +96,22 @@
     <ClCompile Include="SpotLight.cpp">
       <Filter>Archivos de origen\Components</Filter>
     </ClCompile>
+    <ClCompile Include="Lantern.cpp">
+      <Filter>Archivos de origen\GameObjects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="MyFirstVertexShader.glsl">
+    <None Include="ShaderVertex.glsl">
       <Filter>Shaders\Vertex Shader</Filter>
     </None>
-    <None Include="MyFirstGeometryShader.glsl">
+    <None Include="DayNightLanternGeometryShader.glsl">
       <Filter>Shaders\Geometry Shader</Filter>
     </None>
-    <None Include="MyFirstFragmentShader.glsl">
+    <None Include="DayNightLanternShader.glsl">
       <Filter>Shaders\Fragment Shader</Filter>
     </None>
-    <None Include="MyGreenFragmentShader.glsl">
+    <None Include="AstroFragmentShader.glsl">
       <Filter>Shaders\Fragment Shader</Filter>
-    </None>
-    <None Include="MyBlueFragmentShader.glsl">
-      <Filter>Shaders\Fragment Shader</Filter>
-    </None>
-    <None Include="MyWhiteFragmentShader.glsl">
-      <Filter>Shaders\Fragment Shader</Filter>
-    </None>
-    <None Include="SecondGeometryShader.glsl">
-      <Filter>Shaders\Geometry Shader</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -171,6 +165,9 @@
     </ClInclude>
     <ClInclude Include="SpotLight.h">
       <Filter>Archivos de encabezado\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Lantern.h">
+      <Filter>Archivos de encabezado\GameObjects</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

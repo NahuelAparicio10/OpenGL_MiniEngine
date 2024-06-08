@@ -13,10 +13,9 @@ public:
 	static Engine& GetInstance() { static Engine instance; return instance; }
 	Engine();
 
-	//Functions utils
 	void Init();
 	void Update(GLFWwindow* window);
-	void Render(glm::mat4 view);
+	void Render();
 	
 	//Getters
 	InputManager* GetInputManager() { return _inputManager; };

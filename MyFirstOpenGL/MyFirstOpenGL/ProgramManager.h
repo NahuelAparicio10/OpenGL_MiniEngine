@@ -12,8 +12,6 @@
 #include <stb_image.h>
 
 
-
-
 struct ShaderProgram {
 	GLuint vertexShader = 0;
 	GLuint geometryShader = 0;
@@ -22,7 +20,7 @@ struct ShaderProgram {
 class ProgramManager
 {
 public:
-	static ProgramManager& getInstance() {static ProgramManager instance;return instance;}
+	static ProgramManager& GetInstance() {static ProgramManager instance;return instance;}
 	ProgramManager();
 	GLuint CreateProgram(const ShaderProgram& shaders);
 	GLuint LoadVertexShader(const std::string& filePath);
@@ -33,11 +31,6 @@ public:
 	glm::mat4 GenerateRotationMatrix(glm::vec3 axis, float fDegrees);
 	glm::mat4 GenerateTranslationMatrix(glm::vec3 translation);
 
-	ShaderProgram * myFirstProgram;
-	ShaderProgram * mySecondProgram;
-	ShaderProgram * myThirdProgram;
-	ShaderProgram * myFourthProgram;
-	ShaderProgram * myFifthProgram;
 	std::vector<GLuint> compiledPrograms;
 
 private:

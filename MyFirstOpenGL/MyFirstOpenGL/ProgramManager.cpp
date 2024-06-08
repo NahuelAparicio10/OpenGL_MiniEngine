@@ -2,45 +2,29 @@
 #include "Model.h"
 ProgramManager::ProgramManager()
 {
-	myFirstProgram = new ShaderProgram; mySecondProgram = new ShaderProgram; myThirdProgram = new ShaderProgram; myFourthProgram = new ShaderProgram; myFifthProgram = new ShaderProgram;
-	myFirstProgram->vertexShader = LoadVertexShader("MyFirstVertexShader.glsl");
-	myFirstProgram->geometryShader = LoadGeometryShader("MyFirstGeometryShader.glsl");
-	myFirstProgram->fragmentShader = LoadFragmentShader("MyFirstFragmentShader.glsl");
-	compiledPrograms.push_back(CreateProgram(*myFirstProgram));
+	ShaderProgram* dayNightLanternProgram = new ShaderProgram;
+	dayNightLanternProgram->vertexShader = LoadVertexShader("ShaderVertex.glsl");
+	dayNightLanternProgram->geometryShader = LoadGeometryShader("DayNightLanternGeometryShader.glsl");
+	dayNightLanternProgram->fragmentShader = LoadFragmentShader("DayNightLanternShader.glsl");
+	compiledPrograms.push_back(CreateProgram(*dayNightLanternProgram));
 
-	mySecondProgram->vertexShader = LoadVertexShader("MyFirstVertexShader.glsl");
-	mySecondProgram->geometryShader = LoadGeometryShader("MyFirstGeometryShader.glsl");
-	mySecondProgram->fragmentShader = LoadFragmentShader("MyBlueFragmentShader.glsl");
-	compiledPrograms.push_back(CreateProgram(*mySecondProgram));
-
-	myThirdProgram->vertexShader = LoadVertexShader("MyFirstVertexShader.glsl");
-	myThirdProgram->geometryShader = LoadGeometryShader("MyFirstGeometryShader.glsl");
-	myThirdProgram->fragmentShader = LoadFragmentShader("MyGreenFragmentShader.glsl");
-	compiledPrograms.push_back(CreateProgram(*myThirdProgram));
-
-	myFourthProgram->vertexShader = LoadVertexShader("MyFirstVertexShader.glsl");
-	myFourthProgram->geometryShader = LoadGeometryShader("SecondGeometryShader.glsl");
-	myFourthProgram->fragmentShader = LoadFragmentShader("MyWhiteFragmentShader.glsl");
-	compiledPrograms.push_back(CreateProgram(*myFourthProgram));
-
-
-	
+	ShaderProgram* astroProgram = new ShaderProgram;
+	astroProgram->vertexShader = LoadVertexShader("ShaderVertex.glsl");
+	astroProgram->geometryShader = LoadGeometryShader("DayNightLanternGeometryShader.glsl");
+	astroProgram->fragmentShader = LoadFragmentShader("AstroFragmentShader.glsl");
+	compiledPrograms.push_back(CreateProgram(*astroProgram));
 }
 
-//Funcion que genera una smatriz de traslación
 glm::mat4 ProgramManager::GenerateTranslationMatrix(glm::vec3 translation)
 {
 	return glm::translate(glm::mat4(1.f), translation);
 }
 
-//Funcion que genera una smatriz de rotación
 glm::mat4 ProgramManager::GenerateRotationMatrix(glm::vec3 axis, float fDegrees)
 {
 	return glm::rotate(glm::mat4(1.f), glm::radians(fDegrees), glm::normalize(axis));
 }
 
-
-//Funcion que genera una smatriz de escalado
 glm::mat4 ProgramManager::GenerateScaleMatrix(glm::vec3 scaleAxis)
 {
 	return glm::scale(glm::mat4(1.f), scaleAxis);

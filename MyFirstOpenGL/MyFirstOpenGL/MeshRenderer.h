@@ -18,5 +18,9 @@ private:
 	GameObject* _owner;
 	Model* _model;
 	Transform* _transform;
+	float _ambientIntensity;
+	glm::vec3 _ambientSun;
+	glm::vec3 _ambientMoon;
+
 };
 

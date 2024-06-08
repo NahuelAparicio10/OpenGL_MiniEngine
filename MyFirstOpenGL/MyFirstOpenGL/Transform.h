@@ -16,6 +16,5 @@ public:
 	glm::vec3 _vectorFront;
 	glm::vec3 _direction;
 
-private:
 };
 

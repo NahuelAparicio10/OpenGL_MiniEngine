@@ -23,6 +23,7 @@
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="Lantern.cpp" />
     <ClCompile Include="MapManager.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="MeshRenderer.cpp" />
@@ -38,13 +39,10 @@
     <ClCompile Include="Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="MyBlueFragmentShader.glsl" />
-    <None Include="MyFirstFragmentShader.glsl" />
-    <None Include="MyFirstGeometryShader.glsl" />
-    <None Include="MyFirstVertexShader.glsl" />
-    <None Include="MyGreenFragmentShader.glsl" />
-    <None Include="MyWhiteFragmentShader.glsl" />
-    <None Include="SecondGeometryShader.glsl" />
+    <None Include="AstroFragmentShader.glsl" />
+    <None Include="DayNightLanternShader.glsl" />
+    <None Include="DayNightLanternGeometryShader.glsl" />
+    <None Include="ShaderVertex.glsl" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
@@ -52,6 +50,7 @@
     <ClInclude Include="Engine.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="Lantern.h" />
     <ClInclude Include="MapManager.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="MeshRenderer.h" />
