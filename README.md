@@ -16,7 +16,7 @@ I structured the engine using a modular component-based approach organizing the 
 
 **What I learned**
 
-I learned how to architect a small graphics engine using OpenGL, separating responsibilities into reusable components and managers. I deepened my understanding of GLSL shader programming, especially for dynamic lighting, and practiced designing a clean codebase similar to an ECS structure which I really like from Unity projects I made before. This project also taught me how to integrate multiple rendering features—camera, input, textures, and shaders—into a cohesive system.
+I learned how to architect a small graphics engine using OpenGL, separating responsibilities into reusable components and managers. I deepened my understanding of GLSL shader programming, especially for dynamic lighting, and practiced designing a clean codebase similar to an ECS structure which I really like from Unity projects I made before. This project also taught me how to integrate multiple rendering feature such as camera, input, textures, and shaders into a cohesive system.
 
 ```markdown
  📞 Contact
